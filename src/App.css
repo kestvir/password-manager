@@ -1,0 +1,29 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(100deg, rgb(182, 40, 111) 50%, #ac2066 0);
+  font-family: "Roboto", sans-serif;
+}
+
+.savePasswordFormBtn {
+  display: block !important;
+  margin-top: 20px !important;
+}
+
+#material-table-container td .MuiInputBase-input {
+  width: initial !important;
+}
+
+#material-table-container .MuiPaper-root {
+  border-radius: 5px;
+}
+
+.MuiTableRow-footer .MuiTableCell-root {
+  border-bottom: none;
+}
