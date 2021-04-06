@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import firebase from "../../firebase";
-import aes from "crypto-js/aes";
 import { AuthContext } from "../../contexts/AuthContext";
 import TextField from "@material-ui/core/TextField";
 import PasswordInput from "../shared/PasswordInput";
 import Button from "@material-ui/core/Button";
+import { encryptPassword } from "../shared/funcs";
 
 interface SavePasswordFormProps {
   passwordValue: string;
@@ -37,12 +37,7 @@ const SavePasswordForm: React.FC<SavePasswordFormProps> = ({
       const passwordDataObj: PasswordDataObj = {
         service,
         username,
-        password: aes
-          .encrypt(
-            passwordValue,
-            process.env.REACT_APP_ENCRYPTION_SECRET as string
-          )
-          .toString(),
+        password: encryptPassword(passwordValue),
         userID: currentUser.uid,
         createdAt: firebase.firestore.Timestamp.now(),
       };

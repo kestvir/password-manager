@@ -36,7 +36,6 @@ const PasswordsContextProvider: React.FC<ProviderProps> = ({ children }) => {
         .where("userID", "==", currentUser.uid)
         .onSnapshot(
           (querySnapshot) => {
-            // setLoading(true);
             const passwordsData: PasswordDataObj[] = [];
             querySnapshot.forEach((doc) => {
               // doc.data() always returns a DocumentData, which is just {[field: string]: any}
@@ -54,7 +53,6 @@ const PasswordsContextProvider: React.FC<ProviderProps> = ({ children }) => {
               passwordsData.push(passworDocumentDataObj);
             });
             setPasswords(passwordsData);
-            // setLoading(false);
           },
           (err) => {
             console.error(err);
@@ -63,10 +61,6 @@ const PasswordsContextProvider: React.FC<ProviderProps> = ({ children }) => {
         );
     }
   }, [currentUser]);
-
-  //   if (loading) {
-  //     return <Loader />;
-  //   }
 
   return (
     <PasswordsContext.Provider value={{ passwords }}>

@@ -7,11 +7,13 @@ import {
   PasswordsContext,
   PasswordDataObj,
 } from "../../contexts/PasswordsContext";
+import { encryptPassword } from "../shared/funcs";
 
 type UpdatedPasswordsDataObj = {
   id: string;
   service?: string;
   username?: string;
+  password?: string;
 };
 
 const PasswordManager: React.FC = () => {
@@ -96,9 +98,8 @@ const PasswordManager: React.FC = () => {
         data={passwordsData as PasswordDataObj[]}
         editable={{
           onRowUpdate: (newPasswordData, oldPasswordData) =>
-            new Promise((resolve) => {
+            new Promise<void>((resolve) => {
               setTimeout(() => {
-                resolve();
                 const updatedPasswordsDataObj: UpdatedPasswordsDataObj = {
                   id: newPasswordData.id,
                 };
@@ -108,15 +109,22 @@ const PasswordManager: React.FC = () => {
                   newPasswordData.username !== oldPasswordData!.username
                 ) {
                   updatedPasswordsDataObj.username = newPasswordData.username;
+                } else if (
+                  updatedPasswordsDataObj.password !== oldPasswordData!.password
+                ) {
+                  updatedPasswordsDataObj.password = encryptPassword(
+                    newPasswordData.password
+                  );
                 } else return;
                 updatePasswordData(updatedPasswordsDataObj);
+                resolve();
               }, 600);
             }),
           onRowDelete: (passwordDataObj) =>
-            new Promise((resolve) => {
+            new Promise<void>((resolve) => {
               setTimeout(() => {
-                resolve();
                 deletePassword(passwordDataObj.id);
+                resolve();
               }, 600);
             }),
         }}
