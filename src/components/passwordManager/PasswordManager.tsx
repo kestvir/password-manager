@@ -82,7 +82,6 @@ const PasswordManager: React.FC = () => {
       });
   };
 
-  console.log(passwords);
   return (
     <>
       <Feedback

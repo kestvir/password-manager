@@ -20,7 +20,6 @@ const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
     firestore.auth().onAuthStateChanged((user) => {
       setCurrentUser(user);
       setPending(false);
-      console.log(user);
     });
   }, []);
 
