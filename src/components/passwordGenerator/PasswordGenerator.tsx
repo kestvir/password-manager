@@ -7,6 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
+import Feedback from "../shared/Feedback";
 
 const UNInum = [48, 57];
 const UNIupper = [65, 90];
@@ -19,10 +20,11 @@ const PasswordGenerator: React.FC = () => {
   const [useLowecase, setUseLowercase] = useState(true);
   const [useNumbers, setUseNumbers] = useState(true);
   const [useSymbols, setUseSymbols] = useState(true);
-
   const [generatedPassword, setGeneratedPassword] = useState("");
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
+  const [openWarningSnackbar, setOpenWarningSnackbar] = useState(false);
 
   const randOptionsRef = useRef<number[]>([]);
 
@@ -111,7 +113,8 @@ const PasswordGenerator: React.FC = () => {
     const password: string[] = [];
 
     if (!useUppercase && !useLowecase && !useNumbers && !useSymbols) {
-      return alert("choose atleast one of the settings!");
+      setOpenWarningSnackbar(true);
+      return;
     }
 
     checkOptionsToPush();
@@ -142,7 +145,7 @@ const PasswordGenerator: React.FC = () => {
     textarea.select();
     document.execCommand("copy");
     textarea.remove();
-    alert("Password copied to clipboard");
+    setOpenSuccessSnackbar(true);
   };
 
   const handleOpenModal = () => {
@@ -155,6 +158,18 @@ const PasswordGenerator: React.FC = () => {
 
   return (
     <>
+      <Feedback
+        open={openSuccessSnackbar}
+        handleClose={() => setOpenSuccessSnackbar(false)}
+        severity="success"
+        message="Password copied to clipboard!"
+      />
+      <Feedback
+        open={openWarningSnackbar}
+        handleClose={() => setOpenWarningSnackbar(false)}
+        severity="warning"
+        message="Choose atleast one of the password generation settings!"
+      />
       <div className={classes.passwordGeneratorContainer}>
         <h2 style={{ textAlign: "center" }}>Password Generator</h2>
         <div className={classes.resultContainer}>

@@ -70,7 +70,7 @@ const SavePasswordModal: React.FC<SavePasswordModalProps> = ({
         {showSaveForm ? (
           <div style={modalStyle} className={classes.paper}>
             <SavePasswordForm
-              closeModal={handleCloseModal}
+              handleCloseModal={handleCloseModal}
               passwordValue={passwordValue}
             />
           </div>

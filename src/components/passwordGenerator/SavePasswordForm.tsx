@@ -5,10 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import PasswordInput from "../shared/PasswordInput";
 import Button from "@material-ui/core/Button";
 import { encryptPassword } from "../shared/funcs";
+import Feedback from "../shared/Feedback";
 
 interface SavePasswordFormProps {
   passwordValue: string;
-  closeModal: () => void;
+  handleCloseModal: () => void;
 }
 
 interface PasswordDataObj {
@@ -21,7 +22,7 @@ interface PasswordDataObj {
 
 const SavePasswordForm: React.FC<SavePasswordFormProps> = ({
   passwordValue,
-  closeModal,
+  handleCloseModal,
 }) => {
   const { currentUser } = useContext(AuthContext);
 
@@ -29,10 +30,12 @@ const SavePasswordForm: React.FC<SavePasswordFormProps> = ({
   const [service, setSerivice] = useState("");
   const [username, setUsername] = useState("");
 
+  const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
+  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
+
   const savePassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const db = firebase.firestore();
-    console.log(currentUser);
     if (currentUser) {
       const passwordDataObj: PasswordDataObj = {
         service,
@@ -45,49 +48,64 @@ const SavePasswordForm: React.FC<SavePasswordFormProps> = ({
       db.collection("passwords")
         .add(passwordDataObj)
         .then((docRef) => {
-          alert("Password saved!");
-          console.log("Document written with ID: ", docRef.id);
           setSerivice("");
           setUsername("");
-          closeModal();
+          setOpenSuccessSnackbar(true);
+          setTimeout(function () {
+            handleCloseModal();
+          }, 2500);
         })
         .catch((err) => {
-          alert(err);
           console.error("Error adding document: ", err);
+          setOpenErrorSnackbar(true);
         });
     }
   };
 
   return (
-    <form onSubmit={savePassword}>
-      <PasswordInput
-        showPassword={showPassword}
-        passwordValue={passwordValue}
-        changePasswordDisplay={() => setShowPassword(!showPassword)}
+    <>
+      <Feedback
+        open={openSuccessSnackbar}
+        handleClose={() => setOpenSuccessSnackbar(false)}
+        severity="success"
+        message="Password saved!"
       />
-      <TextField
-        fullWidth={true}
-        required
-        label="Service"
-        value={service}
-        onChange={(e) => setSerivice(e.target.value)}
+      <Feedback
+        open={openErrorSnackbar}
+        handleClose={() => setOpenErrorSnackbar(false)}
+        severity="warning"
+        message="Something went wrong..."
       />
-      <TextField
-        fullWidth={true}
-        required
-        label="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        className="savePasswordFormBtn"
-      >
-        Save password
-      </Button>
-    </form>
+      <form onSubmit={savePassword}>
+        <PasswordInput
+          showPassword={showPassword}
+          passwordValue={passwordValue}
+          changePasswordDisplay={() => setShowPassword(!showPassword)}
+        />
+        <TextField
+          fullWidth={true}
+          required
+          label="Service"
+          value={service}
+          onChange={(e) => setSerivice(e.target.value)}
+        />
+        <TextField
+          fullWidth={true}
+          required
+          label="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className="savePasswordFormBtn"
+        >
+          Save password
+        </Button>
+      </form>
+    </>
   );
 };
 
