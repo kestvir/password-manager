@@ -20,9 +20,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: "7rem",
   },
-  appBar: {
-    backgroundColor: "#000",
-  },
   navGridContainer: {
     alignItems: "center",
   },
@@ -56,14 +53,14 @@ const Nav: React.FC<NavProps> = ({ history, location: { pathname } }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar className={classes.appBar} position="fixed">
+      <AppBar color="primary" position="fixed">
         <Toolbar>
           <Grid className={classes.navGridContainer} container>
             <Grid item xs={4}>
               <MenuList className={classes.navLinksList}>
                 <MenuItem
                   component={Link}
-                  to="password-generator"
+                  to="/password-generator"
                   style={{ marginRight: "1.5rem" }}
                   selected={"/password-generator" === pathname}
                 >

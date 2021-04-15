@@ -6,19 +6,37 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import Feedback from "../shared/Feedback";
 
 const PasswordReset: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [emailSent, setEmailSent] = useState(false);
+  const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
+  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const useStyles = makeStyles((theme) => ({
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      marginTop: theme.spacing(8),
+      display: "flex",
+      padding: "15px",
+      borderRadius: "5px",
+      flexDirection: "column",
+      alignItems: "center",
+    },
     passwordResetForm: {
       display: "flex",
       flexDirection: "column",
       textAlign: "center",
+      width: "100%",
+      marginTop: theme.spacing(1),
     },
     passwordResetFormSubmitBtn: {
       marginTop: "20px",
+    },
+    title: {
+      color: "#fff",
     },
   }));
 
@@ -30,11 +48,14 @@ const PasswordReset: React.FC = () => {
       .auth()
       .sendPasswordResetEmail(email)
       .then(function () {
-        setEmailSent(true);
         setEmail("");
+        setOpenSuccessSnackbar(true);
+        setSnackbarMessage("Email sent!");
       })
       .catch(function (error) {
-        alert(error);
+        console.error(error);
+        setOpenErrorSnackbar(true);
+        setSnackbarMessage(error.message);
       });
   };
 
@@ -45,26 +66,48 @@ const PasswordReset: React.FC = () => {
   }
 
   return (
-    <Container maxWidth="xs">
-      {emailSent && <h3>Email sent!</h3>}
-      <form onSubmit={formSubmitHandler} className={classes.passwordResetForm}>
-        <h2>Password Reset</h2>
-        <TextField
-          name="email"
-          type="email"
-          label="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={classes.passwordResetFormSubmitBtn}
+    <Container maxWidth="sm">
+      <Feedback
+        open={openSuccessSnackbar}
+        handleClose={() => setOpenSuccessSnackbar(false)}
+        severity="success"
+        message={snackbarMessage}
+      />
+      <Feedback
+        open={openErrorSnackbar}
+        handleClose={() => setOpenErrorSnackbar(false)}
+        severity="warning"
+        message={snackbarMessage}
+      />
+      <div className={classes.paper}>
+        <form
+          onSubmit={formSubmitHandler}
+          className={classes.passwordResetForm}
         >
-          Send email
-        </Button>
-      </form>
+          <Typography className={classes.title} component="h5" variant="h5">
+            Reset password
+          </Typography>
+          <TextField
+            required
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            name="email"
+            type="email"
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.passwordResetFormSubmitBtn}
+          >
+            Send email
+          </Button>
+        </form>
+      </div>
     </Container>
   );
 };

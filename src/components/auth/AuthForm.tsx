@@ -3,6 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
+import { Link as RoutingLink } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -38,17 +39,17 @@ const AuthForm: React.FC<AuthFormProps> = ({
     },
     avatar: {
       margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.secondary.light,
     },
     form: {
-      width: "100%", // Fix IE 11 issue.
+      width: "100%",
       marginTop: theme.spacing(1),
     },
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
-    links: {
-      color: "#5f78fe",
+    title: {
+      color: "#fff",
     },
   }));
 
@@ -60,7 +61,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography style={{ color: "#fff" }} component="h1" variant="h5">
+        <Typography className={classes.title} component="h5" variant="h5">
           {formType}
         </Typography>
         <form className={classes.form} onSubmit={formSubmitHandler}>
@@ -102,24 +103,22 @@ const AuthForm: React.FC<AuthFormProps> = ({
           {formType === "Log in" ? (
             <Grid container>
               <Grid item xs>
-                <Link
-                  className={classes.links}
-                  href="/password-reset"
-                  variant="body2"
-                >
-                  Forgot password?
-                </Link>
+                <RoutingLink to="/password-reset">
+                  <Link href="/password-reset" variant="body2">
+                    Forgot password?
+                  </Link>
+                </RoutingLink>
               </Grid>
               <Grid item>
-                <Link className={classes.links} href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <RoutingLink to="/signup">
+                  <Link variant="body2">Don't have an account? Sign Up</Link>
+                </RoutingLink>
               </Grid>
             </Grid>
           ) : (
-            <Link className={classes.links} href="/login" variant="body2">
-              Already have an account? Log in!
-            </Link>
+            <RoutingLink to="/login">
+              <Link variant="body2">Already have an account? Log in!</Link>
+            </RoutingLink>
           )}
         </form>
       </div>
