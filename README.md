@@ -1,10 +1,13 @@
 ## Project description
 
-The Password Manager app helps users to generate safe random passwords, encrypts and decrypts them using AES-256 and saves them to firebase.
+The Password Manager app helps users to generate safe random passwords, encrypts and decrypts them using AES-256 and saves them to Firebase.
+
+![password-manager](https://user-images.githubusercontent.com/25966281/114908192-85754b00-9e24-11eb-8ba8-28f5c8e51ada.gif)
 
 ## User Stories
 
 - [x] Users are authenticated by using their email and password.
+- [x] Users can reset their main app password. 
 - [x] Users can generate random safe passwords using several generating options.
 - [x] Users can choose to save their encrypted passwords.
 - [x] Users can retrieve their saved passwords.
