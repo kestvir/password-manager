@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   navLinks: {
-    color: "#fff",
     textDecoration: "none",
     textTransform: "uppercase",
   },
