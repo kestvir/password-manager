@@ -10,7 +10,7 @@ The Password Manager app helps users to generate safe random passwords, encrypts
 - [x] Users can reset their main app password. 
 - [x] Users can generate random safe passwords using several generating options.
 - [x] Users can choose to save their encrypted passwords.
-- [x] Users can retrieve their saved passwords.
+- [x] Users can retrieve, update and delete their saved passwords.
 
 ## Technologies used
 
