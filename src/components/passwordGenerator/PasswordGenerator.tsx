@@ -14,6 +14,55 @@ const UNIupper = [65, 90];
 const UNIlower = [97, 122];
 const UNIsym = [33, 47];
 
+const useStyles = makeStyles((theme) => ({
+  passwordGeneratorContainer: {
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    boxShadow: `0px 2px 10px rgba(31, 28,28, 0.9)`,
+    padding: "20px",
+    width: "350px",
+    maxWidth: "100%",
+    borderRadius: "5px",
+    margin: "0 auto",
+  },
+  numInput: {
+    width: "50px",
+  },
+  formControl: {
+    justifyContent: "space-between",
+    margin: 0,
+    padding: "12px 0",
+    width: "100%",
+  },
+  resultContainer: {
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    position: "relative",
+    fontSize: "18px",
+    letterSpacing: "1px",
+    padding: "12px 10px",
+    height: "50px",
+    width: "100%",
+  },
+  copyToClipboardBtn: {
+    fontSize: "20px",
+    position: "absolute",
+    top: "5px",
+    right: "5px",
+    height: "40px",
+    width: "40px",
+    cursor: "pointer",
+  },
+  checkBox: {
+    padding: 0,
+  },
+  btn: {
+    width: "100%",
+  },
+}));
+
 const PasswordGenerator: React.FC = () => {
   const [length, setLength] = useState(20);
   const [useUppercase, setUseUppercase] = useState(true);
@@ -27,55 +76,6 @@ const PasswordGenerator: React.FC = () => {
   const [openWarningSnackbar, setOpenWarningSnackbar] = useState(false);
 
   const randOptionsRef = useRef<number[]>([]);
-
-  const useStyles = makeStyles((theme) => ({
-    passwordGeneratorContainer: {
-      backgroundColor: theme.palette.background.paper,
-      color: theme.palette.text.primary,
-      boxShadow: `0px 2px 10px rgba(31, 28,28, 0.9)`,
-      padding: "20px",
-      width: "350px",
-      maxWidth: "100%",
-      borderRadius: "5px",
-      margin: "0 auto",
-    },
-    numInput: {
-      width: "50px",
-    },
-    formControl: {
-      justifyContent: "space-between",
-      margin: 0,
-      padding: "12px 0",
-      width: "100%",
-    },
-    resultContainer: {
-      backgroundColor: "rgba(0, 0, 0, 0.4)",
-      display: "flex",
-      justifyContent: "flex-start",
-      alignItems: "center",
-      position: "relative",
-      fontSize: "18px",
-      letterSpacing: "1px",
-      padding: "12px 10px",
-      height: "50px",
-      width: "100%",
-    },
-    copyToClipboardBtn: {
-      fontSize: "20px",
-      position: "absolute",
-      top: "5px",
-      right: "5px",
-      height: "40px",
-      width: "40px",
-      cursor: "pointer",
-    },
-    checkBox: {
-      padding: 0,
-    },
-    btn: {
-      width: "100%",
-    },
-  }));
 
   const classes = useStyles();
 

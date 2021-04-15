@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import firebase from "../../firebase";
 import { AuthContext } from "../../contexts/AuthContext";
 import TextField from "@material-ui/core/TextField";
@@ -20,11 +21,19 @@ interface PasswordDataObj {
   createdAt: firebase.firestore.Timestamp;
 }
 
+const useStyles = makeStyles((theme) => ({
+  snackbar: {
+    width: "100%",
+    bottom: "-55px",
+  },
+}));
+
 const SavePasswordForm: React.FC<SavePasswordFormProps> = ({
   passwordValue,
   handleCloseModal,
 }) => {
   const { currentUser } = useContext(AuthContext);
+  const classes = useStyles();
 
   const [showPassword, setShowPassword] = useState(false);
   const [service, setSerivice] = useState("");
@@ -69,12 +78,14 @@ const SavePasswordForm: React.FC<SavePasswordFormProps> = ({
         handleClose={() => setOpenSuccessSnackbar(false)}
         severity="success"
         message="Password saved!"
+        customStyles={classes.snackbar}
       />
       <Feedback
         open={openErrorSnackbar}
         handleClose={() => setOpenErrorSnackbar(false)}
         severity="warning"
         message="Something went wrong..."
+        customStyles={classes.snackbar}
       />
       <form onSubmit={savePassword}>
         <PasswordInput

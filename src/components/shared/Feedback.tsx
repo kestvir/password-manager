@@ -7,6 +7,7 @@ interface FeedbackProps {
   handleClose: () => void;
   severity: "success" | "info" | "warning" | "error";
   message: string;
+  customStyles?: string;
 }
 const Alert = (props: AlertProps) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -17,9 +18,15 @@ const Feedback: React.FC<FeedbackProps> = ({
   handleClose,
   severity,
   message,
+  customStyles,
 }) => {
   return (
-    <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>
+    <Snackbar
+      open={open}
+      autoHideDuration={2500}
+      onClose={handleClose}
+      className={customStyles}
+    >
       <Alert onClose={handleClose} severity={severity}>
         {message}
       </Alert>

@@ -9,36 +9,36 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Feedback from "../shared/Feedback";
 
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    marginTop: theme.spacing(8),
+    display: "flex",
+    padding: "15px",
+    borderRadius: "5px",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  passwordResetForm: {
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    width: "100%",
+    marginTop: theme.spacing(1),
+  },
+  passwordResetFormSubmitBtn: {
+    marginTop: "20px",
+  },
+  title: {
+    color: "#fff",
+  },
+}));
+
 const PasswordReset: React.FC = () => {
   const [email, setEmail] = useState("");
   const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
   const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      backgroundColor: theme.palette.background.paper,
-      marginTop: theme.spacing(8),
-      display: "flex",
-      padding: "15px",
-      borderRadius: "5px",
-      flexDirection: "column",
-      alignItems: "center",
-    },
-    passwordResetForm: {
-      display: "flex",
-      flexDirection: "column",
-      textAlign: "center",
-      width: "100%",
-      marginTop: theme.spacing(1),
-    },
-    passwordResetFormSubmitBtn: {
-      marginTop: "20px",
-    },
-    title: {
-      color: "#fff",
-    },
-  }));
 
   const classes = useStyles();
 

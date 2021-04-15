@@ -19,6 +19,32 @@ interface AuthFormProps {
   changePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    marginTop: theme.spacing(8),
+    display: "flex",
+    padding: "15px",
+    borderRadius: "5px",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.light,
+  },
+  form: {
+    width: "100%",
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  title: {
+    color: "#fff",
+  },
+}));
+
 const AuthForm: React.FC<AuthFormProps> = ({
   formSubmitHandler,
   formType,
@@ -27,32 +53,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
   password,
   changePassword,
 }) => {
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      backgroundColor: theme.palette.background.paper,
-      marginTop: theme.spacing(8),
-      display: "flex",
-      padding: "15px",
-      borderRadius: "5px",
-      flexDirection: "column",
-      alignItems: "center",
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.light,
-    },
-    form: {
-      width: "100%",
-      marginTop: theme.spacing(1),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
-    title: {
-      color: "#fff",
-    },
-  }));
-
   const classes = useStyles();
 
   return (
